@@ -1,20 +1,13 @@
 import express from 'express';
-import {registerController, loginController,changePasswordController,forgetPasswordController,verifyOtpController,resetPasswordController, refreshTokenController} from './controller.js';
-
+import { UserController } from './controller.js';
+import { authMiddleware } from '../middleware/authMiddleware.js';
+import {upload} from '../middleware/uploadFile.js';
+import { validate } from '../middleware/validate.js';
+import { UserValidation } from './validation.js';
 const router = express.Router();
 
-// register route
-router.post('/register', registerController);
 
-// login route
-router.post('/login', loginController);
-router.post('/change-password', changePasswordController);
-
-// forgot password route
-router.post('/forget-password',forgetPasswordController);
-router.post('/forget-password/verify-otp', verifyOtpController);
-router.post('/reset-password', resetPasswordController);
-
-// refresh token route
-router.post('/refresh-token', refreshTokenController);
-export {router as AuthRouter};
+router.get('/',authMiddleware, UserController.getAllUsers);
+router.get('/user',authMiddleware, UserController.getUserById);
+router.post('/user',authMiddleware,upload.single("photo"), validate(UserValidation.updateUserSchema) ,UserController.updateUser);
+export {router as UserRouter};

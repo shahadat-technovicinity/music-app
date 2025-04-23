@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import { token } from 'morgan';
 
 const generateAccessToken = (user) => {
-  return jwt.sign({ id: user._id }, process.env.JWT_ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
+  return jwt.sign({ id: user._id }, process.env.JWT_ACCESS_TOKEN_SECRET, { expiresIn: '1d' });
 }
 
 const generateRefreshToken = (user) => {

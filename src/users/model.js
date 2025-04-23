@@ -6,6 +6,12 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    first_name: {
+        type: String,
+    },
+    last_name: {
+        type: String,
+    },
     email: {
         type: String,
         required: true,
@@ -17,7 +23,7 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['user', 'admin'],
+        enum: ['user', 'admin', 'musician'],
         default: 'user',
     },
     forget_password_otp: {
@@ -28,6 +34,21 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: null,
     },
+    photo: {
+        type: String // URL to profile picture
+    },
+    bio: {
+        type: String // Short biography or description
+    },
+    genres: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Genre'
+        }
+    ],
+    currentToken: {
+        type: String
+    },      
     createdAt: {
         type: Date,
         default: Date.now,
