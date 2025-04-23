@@ -3,6 +3,7 @@ import {registerController, loginController,changePasswordController,forgetPassw
 import {upload} from '../middleware/uploadFile.js';
 import {validate} from '../middleware/validate.js';
 import {AuthValidation} from './validation.js';
+
 const router = express.Router();
 
 // register route

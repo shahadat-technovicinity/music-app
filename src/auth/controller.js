@@ -23,7 +23,8 @@ import {uploadToCloudinary} from '../utils/resultCloudinary.js';
 const registerController = async (req, res) => {
   try {
     const { name,email,password,role } = req.body;
-    let fileUrl = await uploadToCloudinary(req);
+    let fileUrl;
+    if(req.file)fileUrl = await uploadToCloudinary(req);
   
     // Validate input
     if (!name || !email || !password) {
