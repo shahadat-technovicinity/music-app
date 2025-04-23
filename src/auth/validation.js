@@ -18,10 +18,10 @@ const register = Joi.object({
     'string.empty': 'Password is required.',
     'any.required': 'Password is required.',
   }),
-  role: Joi.string().valid('user', 'admin').optional().messages({
-    'any.only': 'Role must be either "user" or "admin".',
-    'string.base': 'Role must be a text value.',
-  }),
+  // role: Joi.string().valid('user', 'admin').optional().messages({
+  //   'any.only': 'Role must be either "user" or "admin".',
+  //   'string.base': 'Role must be a text value.',
+  // }),
 });
 
 const login = Joi.object({
