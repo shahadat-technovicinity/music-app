@@ -3,10 +3,10 @@ const { Schema } = mongoose;
 
 const songSchema = new Schema({
   title: { type: String, required: true },
-  artist: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   album: { type: mongoose.Schema.Types.ObjectId, ref: 'Album', default: null },
-  photo: { type: String, required: true },
+  photo: { type: String},
   audio: { type: String, required: true },
+  lyrics:{ type: String },
   genre: { type: String, required: true },
   duration: { type: Number, required: true },
   releaseDate: { type: Date, default: Date.now },

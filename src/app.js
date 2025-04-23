@@ -9,6 +9,7 @@ import {FollowRouter} from './follows/route.js';
 import {PostRouter} from './posts/route.js';
 import {PreferencesRouter} from './preferences/route.js';
 import { SongRouter } from './songs/route.js';
+import {PurchaseRouter} from './purchases/route.js'
 import {errorHandler} from './utils/errorHandler.js';
 const app = express();
 
@@ -29,6 +30,12 @@ app.use(morgan("dev"));
 app.get('/', (req, res) => {
   res.send('Hello from music app server!');
 });
+app.get('/success', (req, res) => {
+  res.send('Payment Successfully Completed!');
+});
+app.get('/cancel', (req, res) => {
+  res.send('Payment Failed!');
+});
 
 app.use('/api/v1/auth', AuthRouter);
 app.use('/api/v1/users', UserRouter);
@@ -38,6 +45,7 @@ app.use('/api/v1/follows', FollowRouter);
 app.use('/api/v1/posts', PostRouter);
 app.use('/api/v1/preferences', PreferencesRouter);
 app.use('/api/v1/songs', SongRouter);
+app.use('/api/v1/purchases', PurchaseRouter);
 
 // Error handling global middleware
 app.use(errorHandler);

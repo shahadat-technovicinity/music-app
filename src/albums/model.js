@@ -5,19 +5,16 @@ const albumSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  artist: {
+  userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Artist',
+    ref: 'User',
     required: true
   },
-  releaseYear: {
-    type: Number,
-    required: true
-  },
-  coverImage: {
+  releaseDate: { type: Date, default: Date.now },
+  photo: {
     type: String,
-    required: true
   },
+  price: { type: Number, default: 0 },
   songs: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Song'
@@ -25,7 +22,11 @@ const albumSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now
-  }
+  },
+  updatedAt: { 
+    type: Date, 
+    default: Date.now 
+  },
 });
 
 const Album = mongoose.model('Album', albumSchema);
