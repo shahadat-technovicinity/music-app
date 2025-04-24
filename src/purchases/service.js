@@ -1,5 +1,6 @@
 import Stripe from 'stripe';
 import { Cart } from '../carts/model.js';
+import { Download } from '../downloads/model.js';
 import { Purchase } from './model.js';
 import { Song } from '../songs/model.js';
 import { Album } from '../albums/model.js';
@@ -12,7 +13,6 @@ const addToCart = async (userId, { itemId, itemType }) => {
   if (itemType === 'song') item = await Song.findById(itemId);
   else item = await Album.findById(itemId);
   if (!item) throw new AppError('Item not found', 404);
-  console.log("Item: ", item);
 
   const cart = await Cart.findOneAndUpdate(
     { userId },
@@ -80,7 +80,6 @@ const getDownloadUrl = async (userId, itemId) => {
   return item.audioUrl || item.coverImage || item.lyricsUrl;
 };
 
-
 const removeFromCart = async (userId, itemId) => {
     let cart = await Cart.findOne({
         userId,
@@ -95,12 +94,32 @@ const removeFromCart = async (userId, itemId) => {
       { new: true }
     );
     return cart;
-  };
-  
+};
+
+const paymentSuccess = async (userId) => {
+  const cart = await Cart.findOne({ userId });
+  if (!cart || cart.items.length === 0) {
+    throw new AppError("Cart is empty", 404);
+  }
+  const existingDownload = await Download.findOne({ userId });
+  if (existingDownload) {
+    existingDownload.items.push(...cart.items);
+    await existingDownload.save();
+  } else {
+    await Download.create({
+      userId,
+      items: cart.items
+    });
+  }
+  await Cart.deleteOne({ userId }); 
+  return existingDownload;
+};
+
 export const PurchaseService = {
   addToCart,
   getCart,
   createStripeSession,
   getDownloadUrl,
-  removeFromCart
+  removeFromCart,
+  paymentSuccess
 };
