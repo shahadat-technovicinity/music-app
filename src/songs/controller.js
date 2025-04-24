@@ -25,7 +25,7 @@ export const SongController = {
         userId: req.user.id,
       };
 
-  
+      console.log("SongData: ", songData);
       const song = await SongService.uploadSingleSong(songData);
   
       res.status(201).json({

@@ -9,6 +9,7 @@ import {FollowRouter} from './follows/route.js';
 import {PostRouter} from './posts/route.js';
 import {PreferencesRouter} from './preferences/route.js';
 import { SongRouter } from './songs/route.js';
+import { DownloadRoter } from './downloads/route.js';
 import {PurchaseRouter} from './purchases/route.js'
 import {errorHandler} from './utils/errorHandler.js';
 const app = express();
@@ -46,6 +47,7 @@ app.use('/api/v1/posts', PostRouter);
 app.use('/api/v1/preferences', PreferencesRouter);
 app.use('/api/v1/songs', SongRouter);
 app.use('/api/v1/purchases', PurchaseRouter);
+app.use('/api/v1/downloads', DownloadRoter);
 
 // Error handling global middleware
 app.use(errorHandler);

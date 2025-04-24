@@ -8,6 +8,7 @@ router.post('/cart', authMiddleware, PurchaseController.addToCart);
 router.get('/cart', authMiddleware, PurchaseController.getCart);
 router.delete('/cart/:itemId', authMiddleware, PurchaseController.removeFromCart);
 router.post('/checkout', authMiddleware, PurchaseController.checkout);
-router.get('/downloads/:id', authMiddleware, PurchaseController.downloadItem);
+router.post('/payment-success/:sessionId', authMiddleware, PurchaseController.paymentSuccess);
+// router.get('/downloads/:id', authMiddleware, PurchaseController.downloadItem);
 
 export { router as PurchaseRouter };
