@@ -24,6 +24,6 @@ router.post('/:id', authMiddleware,uploadMulti.fields([
 router.delete('/:id', authMiddleware, SongController.deleteSong);
 // router.get('/new', SongController.getNewReleases);
 // router.get('/trending', SongController.getTrendingSongs);
-// router.get('/recommended', authMiddleware, SongController.getRecommendedSongs);
+// router.get('/recommended', SongController.getRecommendedSongs);
 
 export {router as SongRouter};

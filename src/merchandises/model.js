@@ -1,36 +1,11 @@
 import mongoose from 'mongoose';
 
 const merchandiseSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true
-  },
-  description: {
-    type: String
-  },
-  price: {
-    type: Number,
-    required: true
-  },
-  image: {
-    type: String,
-    required: true
-  },
-  category: {
-    type: String,
-    enum: ['clothing', 'accessories', 'music', 'other'],
-    default: 'other'
-  },
-  artist: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Artist',
-    required: true
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now
-  }
-});
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  title: { type: String, required: true },
+  price: { type: Number, required: true },
+  sizes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Size' }],
+  images: [{ type: String }]
+}, { timestamps: true });
 
-const Merchandise = mongoose.model('Merchandise', merchandiseSchema);
-export { Merchandise };
+export const Merchandise=  mongoose.model('Merchandise', merchandiseSchema);
